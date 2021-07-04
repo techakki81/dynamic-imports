@@ -1,23 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from 'react'
 
 function App() {
+
+  const [Component, setComponent] = useState(null)
+   
+
+  console.log(Component)
+
+  const handleSelectChange = (e) => {
+
+   switch(e.target.value){
+    case "showPic":    
+      import('./ShowStaticPic')
+        .then(ShowStaticPic => {          
+           setComponent(ShowStaticPic.default)
+        })
+      .catch(err => console.log(err.message));
+      break;
+
+    case "remotePic":
+      let j = 24;
+      import('./ShowRemotePic')
+      .then(ShowRemotePic => {      
+        setComponent(ShowRemotePic.default)       
+      })
+    .catch(err => console.log(err.message));
+    break;
+  
+    
+    default:
+   } 
+ }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <label  htmlFor="dropDowns">Choose a Module:</label>
+      <select name="dropDowns"  onChange={handleSelectChange}  id="dropDowns">
+      <option value="na" > ---------------</option>
+        <option value="showPic" >Show Local Picture </option>   
+        <option value="remotePic">Download Remote Picture</option>        
+      </select>
+
+      {/* {   loaded  && <div id="component"> {Component}  </div> }  */}
+
+       {/* two errros.. loaded used but component was still null; Compont should not be used as <Component/> */}
+       {   Component  && <div id="component"> {Component}  </div> } 
+
+
     </div>
   );
 }
