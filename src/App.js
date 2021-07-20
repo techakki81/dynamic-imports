@@ -1,10 +1,10 @@
 import {useState} from 'react'
+import ShowRemotePic from './ShowRemotePic'
 
 function App() {
 
   const [Component, setComponent] = useState(null)
-   
-
+  
   console.log(Component)
 
   const handleSelectChange = (e) => {
@@ -19,7 +19,6 @@ function App() {
       break;
 
     case "remotePic":
-      let j = 24;
       import('./ShowRemotePic')
       .then(ShowRemotePic => {      
         setComponent(ShowRemotePic.default)       
@@ -35,7 +34,6 @@ function App() {
 
   return (
     <div className="App">
-
       <label  htmlFor="dropDowns">Choose a Module:</label>
       <select name="dropDowns"  onChange={handleSelectChange}  id="dropDowns">
       <option value="na" > ---------------</option>
@@ -45,10 +43,11 @@ function App() {
 
       {/* {   loaded  && <div id="component"> {Component}  </div> }  */}
 
-       {/* two errros.. loaded used but component was still null; Compont should not be used as <Component/> */}
-       {   Component  && <div id="component"> {Component}  </div> } 
+       {/* two errros.. loaded used but component was still null; 
+       Component should not be used as <Component/> */}
+       { Component  && <div id="component"> {Component}  </div> } 
 
-
+     
     </div>
   );
 }
